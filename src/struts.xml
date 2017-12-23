@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="demo" extends="struts-default" namespace="/">
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="loginsuccess">/index.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="customer_*" class="customerAction" method="{1}">
+			<result name="toAddPage">/jsp/customer/add.jsp</result>
+			<result name="add" type="redirectAction">customer_list</result>
+			<result name="list">/jsp/customer/list.jsp</result>
+			<result name="delete" type="redirectAction">customer_list</result>
+			<result name="showCustomer">/jsp/customer/edit.jsp</result>
+			<result name="update" type="redirectAction">customer_list</result>
+			<result name="listPage">/jsp/customer/listpage.jsp</result>
+			<result name="conditionQuery">/jsp/customer/list.jsp</result>
+			<result name="showMap">/jsp/customer/map.jsp</result>
+			<result name="showPosition">/jsp/customer/test.jsp</result>
+			<result name="heatMap">/jsp/customer/demomap.jsp</result>
+			<result name="heatMap2">/jsp/customer/heatmap.jsp</result>
+			<result name="traceMap">/jsp/customer/tracemap.jsp</result>
+		</action>
+		<action name="linkman_*" class="linkManAction" method="{1}">
+			<result name="toAddPage">/jsp/linkman/add.jsp</result>
+			<result name="add" type="redirectAction">customer_list</result>
+			<result name="list">/jsp/linkman/list.jsp</result>
+			<result name="delete" type="redirectAction">linkman_list</result>
+			<result name="edit">/jsp/linkman/edit.jsp</result>
+			<result name="editsave" type="redirectAction">linkman_list</result>
+			<result name="listPage">/jsp/customer/listpage.jsp</result>
+			<result name="conditionQuery">/jsp/customer/list.jsp</result>
+		</action>
+		<action name="keliu_*" class="keliuAction" method="{1}">
+			<result name="toAddPage">/jsp/keliu/add.jsp</result>
+			<result name="add">/jsp/success.jsp</result>
+			<result name="list">/jsp/keliu/list.jsp</result>
+			<result name="delete" type="redirectAction">keliu_list</result>
+			<result name="showKeliu">/jsp/keliu/edit.jsp</result>
+			<result name="editsave">/jsp/success.jsp</result>
+			<result name="listPage">/jsp/keliu/listpage.jsp</result>
+			<result name="conditionQuery">/jsp/customer/list.jsp</result>
+			<result name="toUserPage">/jsp/keliu/keliuInfo2.jsp</result>
+			<result name="anonyWifi">/jsp/keliu/anonyWifiInfo.jsp</result>
+			<result name="toWifiPerson">/jsp/keliu/WifiPerson.jsp</result>
+			<result name="toWifitriPositon">/jsp/keliu/WifitriPositon.jsp</result>
+			<result name="toWififpPositon">/jsp/keliu/WififpPositon.jsp</result>
+			<result name="toWifiWknnPositon">/jsp/keliu/WifiWknnPositon.jsp</result>
+			<result name="toWifiCknnPositon">/jsp/keliu/WifiCknnPositon.jsp</result>
+		</action>
+		
+		<action name="udp_*" class="udpAction" method="{1}">
+			
+		</action>
+   
+	</package>
+</struts>       

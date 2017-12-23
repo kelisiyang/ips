@@ -1,0 +1,254 @@
+{
+    "version": 8,
+    "name": "indoor",
+    "metadata": {
+        "mapbox:autocomposite": true,
+        "mapbox:type": "template",
+        "mapbox:trackposition": false
+    },
+    "center": [
+        126.49022311972612,
+        45.87060396314001
+    ],
+    "zoom": 19.15218083439314,
+    "bearing": 0,
+    "pitch": 30,
+    "sources": {
+        "composite": {
+            "url": "mapbox://jing-sam.1n3gcr7b,jing-sam.7bcdw5vb,jing-sam.8oa8jdp9,jing-sam.299nfczj,jing-sam.cqj9kzi1,jing-sam.cj7mvzoct1dpc32o6mvqbulwh-2swsz",
+            "type": "vector"
+        },
+        "vec_w": {
+            "type": "raster",
+            "tiles": [
+              "http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}"
+            ],
+            "tileSize": 256
+        },
+        "cva_w": {
+            "type": "raster",
+            "tiles": [
+              "http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}"
+            ],
+            "tileSize": 256
+        }
+    },
+    "sprite": "mapbox://sprites/jing-sam/cj6ujmjn27akd2rulnkkjh285",
+    "glyphs": "mapbox://fonts/jing-sam/{fontstack}/{range}.pbf",
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "paint": {
+                "background-color": "hsl(0, 0%, 79%)"
+            }
+        },
+        {
+            "id": "vec_w",
+            "type": "raster",
+            "source": "vec_w"
+        },
+        {
+            "id": "cva_w",
+            "type": "raster",
+            "source": "cva_w"
+        },        
+        {
+            "id": "floor1",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "floor1-6bikxb",
+            "minzoom": 18,
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "fill-color": {
+                    "base": 1,
+                    "type": "categorical",
+                    "property": "ColorID_1_",
+                    "stops": [
+                        [
+                            "会议室",
+                            "rgba(255,227,250,1)"
+                        ],
+                        [
+                            "办公室",
+                            "rgba(207,227,255,1)"
+                        ],
+                        [
+                            "南极厅",
+                            "rgba(212,219,255,1)"
+                        ],
+                        [
+                            "卫生间",
+                            "rgba(187,233,252,1)"
+                        ],
+                        [
+                            "墙",
+                            "rgba(178,178,178,1)"
+                        ],
+                        [
+                            "接待室",
+                            "rgba(233,227,255,1)"
+                        ],
+                        [
+                            "机房",
+                            "rgba(232,255,245,1)"
+                        ],
+                        [
+                            "演示厅",
+                            "rgba(247,219,255,1)"
+                        ],
+                        [
+                            "电井",
+                            "rgba(237,227,252,1)"
+                        ],
+                        [
+                            "电梯间",
+                            "rgba(209,224,252,1)"
+                        ],
+                        [
+                            "监控室",
+                            "rgba(224,207,252,1)"
+                        ],
+                        [
+                            "窗",
+                            "rgba(190,232,255,1)"
+                        ],
+                        [
+                            "设备间",
+                            "rgba(173,232,255,1)"
+                        ],
+                        [
+                            "走廊",
+                            "rgba(245,245,245,1)"
+                        ],
+                        [
+                            "配电室",
+                            "rgba(181,214,255,1)"
+                        ],
+                        [
+                            "门",
+                            "rgba(255,170,0,1)"
+                        ],
+                        [
+                            "门厅",
+                            "rgba(255,255,255,1)"
+                        ]
+                    ],
+                    "default": "rgba(241,242,201,1)"
+                }
+            }
+        },
+        {
+            "id": "装饰线",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "line-64nenw",
+            "minzoom": 18,
+            "filter": [
+                "in",
+                "Layer",
+                "卫生间",
+                "展板",
+                "楼梯"
+            ],
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "line-color": "rgba(178,178,178,1)"
+            }
+        },
+        {
+            "id": "导航线",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "naviline-a9rge4",
+            "minzoom": 18,
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "line-color": "rgba(124,0,145,1)",
+                "line-width": 2
+            }
+        },
+        {
+            "id": "导航点",
+            "type": "circle",
+            "source": "composite",
+            "source-layer": "navipoint-3sr4xd",
+            "minzoom": 18,
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "circle-stroke-width": 1,
+                "circle-color": "rgba(0,158,137,1)",
+                "circle-radius": 3
+            }
+        },
+        {
+            "id": "3D墙",
+            "type": "fill-extrusion",
+            "source": "composite",
+            "source-layer": "floor1-6bikxb",
+            "minzoom": 18,
+            "filter": [
+                "in",
+                "ColorID_1_",
+                "墙",
+                "窗"
+            ],
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "fill-extrusion-color": "hsl(0, 0%, 100%)",
+                "fill-extrusion-height": 2
+            }
+        },
+        {
+            "id": "属性点",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "point-0lz69c",
+            "minzoom": 18,
+            "layout": {
+                "visibility": "visible",
+                "text-field": "{名称}",
+                "text-size": 12,
+                "text-allow-overlap": true
+            },
+            "paint": {}
+        },
+        {
+            "id": "poi",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "indoor",
+            "maxzoom": 18,
+            "layout": {
+                "visibility": "visible",
+                "text-field": "黑龙江地理信息产业园",
+                "icon-size": 0.8,
+                "icon-image": "home-30",
+                "text-offset": [
+                    0,
+                    -2.2
+                ],
+                "text-size": 14,
+                "text-max-width": 8
+            },
+            "paint": {}
+        }
+    ],
+    "created": "2017-08-27T09:39:21.721Z",
+    "id": "cj6ujmjn27akd2rulnkkjh285",
+    "modified": "2017-09-23T15:58:04.914Z",
+    "owner": "jing-sam",
+    "visibility": "public",
+    "draft": false
+}

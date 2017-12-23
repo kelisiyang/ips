@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="entity.Customer" table="tab_terminal_btmatrix_all_new">
+		<id name="dev_id" column="dev_id">
+			<generator class="native"></generator>
+		</id>
+		<property name="muMac" column="muMac"></property>
+		<property name="X" column="X"></property>
+		<property name="Y" column="Y"></property>
+		<property name="Z" column="Z"></property>
+		<property name="absX" column="absX"></property>
+		<property name="absY" column="absY"></property>
+		<property name="absZ" column="absZ"></property>
+		<property name="latitude" column="latitude"></property>
+		<property name="longitude" column="longitude"></property>
+		<property name="accuracy" column="accuracy"></property>
+		<property name="floor" column="floor"></property>
+		<property name="recvtime" column="recvtime"></property>
+				
+	</class>
+</hibernate-mapping>
