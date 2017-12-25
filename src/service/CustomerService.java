@@ -1,5 +1,7 @@
 package service;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -71,6 +73,11 @@ public class CustomerService {
 	public List<Customer> findCondition(Customer customer) {
 		// TODO Auto-generated method stub
 		return customerDao.findCondition(customer);
+	}
+
+	public List<Customer> findCondition2(Customer customer,String starttime,String endtime) throws ParseException {
+		// TODO Auto-generated method stub
+		return customerDao.findCondition2(customer,starttime,endtime);
 	}
 
 	

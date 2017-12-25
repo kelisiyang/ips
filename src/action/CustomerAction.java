@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,14 +149,21 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	}
 	//单用户轨迹查询
 	public String traceMap() throws Exception{
-		if(customer.getMuMac()!=null&&!"".equals(customer.getMuMac()))
+		HttpServletRequest request = ServletActionContext.getRequest();  
+		String starttime=request.getParameter("starttime");
+		String endtime=request.getParameter("endtime");
+		
+		//System.out.println(date);
+		String muMac=request.getParameter("muMac");
+		System.out.println(muMac+starttime+endtime);
+		if(muMac!=null&&starttime!=null&&endtime!=null)
 		{
-			List<Customer> list=customerService.findCondition(customer);
+			List<Customer> list=customerService.findCondition2(customer,starttime,endtime);
 			StringBuilder resultBuilder = new StringBuilder("{").append("\"type\": \"Feature\",")
 					.append("\"geometry\": {").append("\"type\": \"LineString\",").append("\"coordinates\":[");
 			StringBuilder recordBuilder = new StringBuilder();
 			ServletActionContext.getRequest().setAttribute("list", list);
-			System.out.println(list.size());
+			//System.out.println(list.size());
 			List<Double> X=new ArrayList<Double>();
 			List<Double> Y=new ArrayList<Double>();
 			List<Double> longitudelist=new ArrayList<Double>();
@@ -180,13 +188,15 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 			resultBuilder.append(recordBuilder).append("]}}");
 			String jsonString=resultBuilder.toString();
 			System.out.println(jsonString);
-			Writer w=new FileWriter("C:\\Users\\lenovo\\Desktop\\hlj\\WebRoot\\geojson\\tracemap.geojson");
-			BufferedWriter bw=new BufferedWriter(w);
-			bw.write(jsonString);
-			bw.close();
+			//Writer w=new FileWriter("C:\\Users\\lenovo\\Desktop\\ips-master\\WebRoot\\geojson\\tracemap.geojson");
+			//BufferedWriter bw=new BufferedWriter(w);
+			//bw.write(jsonString);
+			//bw.close();
+			ServletActionContext.getRequest().setAttribute("jsonString", jsonString);
+			
 		}
 		else{
-			list();
+			return "traceMap2";
 		}
 		return "traceMap";
 	}

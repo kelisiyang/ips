@@ -1,5 +1,8 @@
 package dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -62,6 +65,20 @@ public class CustomerDaoImpl implements CustomerDao{
 	public List<Customer> findCondition(Customer customer) {
 		@SuppressWarnings("unchecked")
 		List<Customer> list = (List<Customer>) hibernateTemplate.find("from Customer where muMac like ?", "%"+customer.getMuMac()+"%");
+		return list;
+	}
+    //根据mumac和起始结束时间段查询轨迹
+	@Override
+	public List<Customer> findCondition2(Customer customer, String starttime, String endtime) throws ParseException {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("unchecked")
+		//将String转换成Date类型 
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startdate = sdf.parse(starttime);
+		Date enddate=sdf.parse(endtime);
+		Object[] values={customer.getMuMac(),startdate,enddate};
+		String hql="from Customer where muMac=? and recvtime>? and recvtime<?";
+		List<Customer> list = (List<Customer>) hibernateTemplate.find(hql,values);
 		return list;
 	}
 
