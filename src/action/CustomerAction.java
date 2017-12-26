@@ -317,6 +317,12 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 				   return null;
 				
 			}
+	    //mapbox²âÊÔ
+	    public String monitor(){
+			
+	    	return "monitor";
+	    	
+	    }
 	public CGCS2000Point getcPoint() {
 		return cPoint;
 	}

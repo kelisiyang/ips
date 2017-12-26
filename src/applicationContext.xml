@@ -20,6 +20,8 @@
 	</bean>
 	<bean id="udpAction" class="action.UdpAction" scope="singleton">
 	</bean>
+	<bean id="geojsonAction" class="action.GeojsonAction" scope="singleton">
+	</bean>
 	<bean id="keliuAction" class="action.KeliuAction" scope="prototype">
 		<property name="keliuService" ref="keliuService"></property>
 	</bean>

@@ -77,7 +77,7 @@ xmlhttp.onreadystatechange=function()
     map.getSource('point').setData(getPoint(x, y));
     }  
   }  
-xmlhttp.open("GET","http://localhost:8080/sshcustorm3/customer_ajax.action",false);  
+xmlhttp.open("GET","http://47.94.129.191:8080/sshcustorm3/customer_ajax.action",false);  
 xmlhttp.send();  
 setTimeout("loadXMLDoc()",500);//递归调用  
 }  
