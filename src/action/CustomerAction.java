@@ -13,6 +13,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -212,40 +213,49 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	public String showMap(){
 		return "showMap";
 	}
-	public String heatMap(){
-		return "heatMap";
-	}
 	//ÈÈµã·ÖÎö
-	public String heatMap2() throws IOException{
-		List<Customer> list=customerService.findAll();
-		StringBuilder resultBuilder = new StringBuilder("{").append("\"type\": \"FeatureCollection\",")
-				.append("\"features\": [");
-		StringBuilder recordBuilder = new StringBuilder();
-		for(int i=0;i<list.size();i++)
+	public String heatMap() throws IOException, ParseException{
+		HttpServletRequest request = ServletActionContext.getRequest();  
+		String starttime=request.getParameter("starttime");
+		String endtime=request.getParameter("endtime");
+		System.out.println(starttime+endtime);
+		if(starttime!=null&&endtime!=null)
 		{
-			Double X=list.get(i).getX();
-			Double Y=list.get(i).getY();
-			absx=1.004614916617*Math.sin(0.0001577329)*list.get(i).getX()+1.004614916617*Math.cos(0.0001577329)*list.get(i).getY()+5081797.342644;
+			List<Customer> list=customerService.findCondition3(starttime,endtime);
+			StringBuilder resultBuilder = new StringBuilder("{").append("\"type\": \"FeatureCollection\",")
+					.append("\"features\": [");
+			StringBuilder recordBuilder = new StringBuilder();
+			for(int i=0;i<list.size();i++)
+			{
+				Double X=list.get(i).getX();
+				Double Y=list.get(i).getY();
+				absx=1.004614916617*Math.sin(0.0001577329)*list.get(i).getX()+1.004614916617*Math.cos(0.0001577329)*list.get(i).getY()+5081797.342644;
+				
+				absy=1.004614916617*Math.cos(0.0001577329)*list.get(i).getX()-1.004614916617*Math.sin(0.0001577329)*list.get(i).getY()+538015.238729;
+				//System.out.println(absx+absy);
+				xy2BL bl=new xy2BL(absx, absy, 126);
+				latitude=bl.getB();
+				longitude=bl.getL();
+				recordBuilder.append("{ \"type\": \"Feature\", \"geometry\": { \"type\": \"Point\", \"coordinates\": [ ")
+				.append(longitude).append(", ").append(latitude).append(" ] } },");
+				
+			}
+			recordBuilder.setLength(recordBuilder.length() - 1);
+			resultBuilder.append(recordBuilder).append("]").append("}");
+			String geoString=resultBuilder.toString();
 			
-			absy=1.004614916617*Math.cos(0.0001577329)*list.get(i).getX()-1.004614916617*Math.sin(0.0001577329)*list.get(i).getY()+538015.238729;
-			//System.out.println(absx+absy);
-			xy2BL bl=new xy2BL(absx, absy, 126);
-			latitude=bl.getB();
-			longitude=bl.getL();
-			recordBuilder.append("{ \"type\": \"Feature\", \"geometry\": { \"type\": \"Point\", \"coordinates\": [ ")
-			.append(longitude).append(", ").append(latitude).append(" ] } },");
-			
+			//System.out.println(geoString);
+			/*Writer w=new FileWriter("C:\\Users\\lenovo\\Desktop\\hlj\\WebRoot\\geojson\\earthquakes.geojson");
+			BufferedWriter bw=new BufferedWriter(w);
+			bw.write(geoString);
+			bw.close();*/
+			ServletActionContext.getRequest().setAttribute("geoString", geoString);
+			System.out.println(geoString);
 		}
-		recordBuilder.setLength(recordBuilder.length() - 1);
-		resultBuilder.append(recordBuilder).append("]").append("}");
-		String geoString=resultBuilder.toString();
-		
-		//System.out.println(geoString);
-		Writer w=new FileWriter("C:\\Users\\lenovo\\Desktop\\hlj\\WebRoot\\geojson\\earthquakes.geojson");
-		BufferedWriter bw=new BufferedWriter(w);
-		bw.write(geoString);
-		bw.close();
-		return "heatMap2";
+		else{
+			return "heatMap2";
+		}
+		return "heatMap";
 	}
 	
 	
@@ -323,6 +333,13 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	    	return "monitor";
 	    	
 	    }
+	    //tracedisplay²âÊÔ
+	    public String tracedisplay(){
+			
+	    	return "tracedisplay";
+	    	
+	    }
+	    
 	public CGCS2000Point getcPoint() {
 		return cPoint;
 	}

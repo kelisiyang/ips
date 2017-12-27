@@ -179,7 +179,7 @@ A.active {
 														target=main>－蓝牙阵列用户后台监控</A></TD>
 												</TR>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_heatMap2.action"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_heatMap.action"
 														target=main>－热点图</A></TD>
 												</TR>
 												

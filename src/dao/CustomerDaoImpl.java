@@ -70,7 +70,6 @@ public class CustomerDaoImpl implements CustomerDao{
     //根据mumac和起始结束时间段查询轨迹
 	@Override
 	public List<Customer> findCondition2(Customer customer, String starttime, String endtime) throws ParseException {
-		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
 		//将String转换成Date类型 
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -81,5 +80,14 @@ public class CustomerDaoImpl implements CustomerDao{
 		List<Customer> list = (List<Customer>) hibernateTemplate.find(hql,values);
 		return list;
 	}
-
+	@Override
+	public List<Customer> findCondition3(String starttime, String endtime) throws ParseException {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startdate = sdf.parse(starttime);
+		Date enddate=sdf.parse(endtime);
+		Object[] values={startdate,enddate};
+		String hql="from Customer where recvtime>? and recvtime<?";
+		List<Customer> list = (List<Customer>) hibernateTemplate.find(hql,values);
+		return list;
+}
 }

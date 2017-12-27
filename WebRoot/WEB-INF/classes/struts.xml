@@ -17,11 +17,12 @@
 			<result name="conditionQuery">/jsp/customer/list.jsp</result>
 			<result name="showMap">/jsp/customer/map.jsp</result>
 			<result name="showPosition">/jsp/customer/test.jsp</result>
-			<result name="heatMap">/jsp/customer/demomap.jsp</result>
-			<result name="heatMap2">/jsp/customer/heatmap.jsp</result>
+			<result name="heatMap">/jsp/customer/heatmap.jsp</result>
+			<result name="heatMap2">/jsp/customer/heatmap2.jsp</result>
 			<result name="traceMap">/jsp/customer/tracemap.jsp</result>
 			<result name="traceMap2">/jsp/customer/tracemap2.jsp</result>
 			<result name="monitor">/jsp/customer/monitor.jsp</result>
+			<result name="tracedisplay">/jsp/customer/tracedisplay.jsp</result>
 		</action>
 		<action name="linkman_*" class="linkManAction" method="{1}">
 			<result name="toAddPage">/jsp/linkman/add.jsp</result>

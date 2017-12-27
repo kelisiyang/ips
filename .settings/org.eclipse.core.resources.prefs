@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
 encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/jsp/customer/demomap.jsp=UTF-8
+encoding//WebRoot/jsp/customer/heatmap.jsp=UTF-8
 encoding//WebRoot/jsp/customer/map.jsp=UTF-8
 encoding//WebRoot/jsp/customer/monitor.jsp=UTF-8
+encoding//WebRoot/jsp/customer/tracedisplay.jsp=UTF-8
 encoding//WebRoot/jsp/keliu/WifiPerson.jsp=UTF-8
 encoding//WebRoot/jsp/keliu/anonyWifiInfo.jsp=UTF-8
 encoding//WebRoot/jsp/keliu/keliuInfo.jsp=UTF-8

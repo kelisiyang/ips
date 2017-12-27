@@ -79,6 +79,11 @@ public class CustomerService {
 		// TODO Auto-generated method stub
 		return customerDao.findCondition2(customer,starttime,endtime);
 	}
+    //根据起始时间和终止时间查看热点图
+	public List<Customer> findCondition3(String starttime, String endtime) throws ParseException {
+		// TODO Auto-generated method stub
+		return customerDao.findCondition3(starttime,endtime);
+	}
 
 	
 }

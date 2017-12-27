@@ -26,6 +26,8 @@ public interface CustomerDao {
 	public List<Customer> findCondition(Customer customer);
 	//条件查询 根据mac starttime和endtime 查询满足的customer
 	public List<Customer> findCondition2(Customer customer, String starttime, String endtime)throws ParseException;
+	//根据起始时间和终止时间查看热点图
+	public List<Customer> findCondition3(String starttime, String endtime) throws ParseException;
 
 	
 }
