@@ -171,6 +171,10 @@ A.active {
 														target=main>－蓝牙阵列用户轨迹查询</A></TD>
 												</TR>
 												<TR>
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_tracedisplay.action"
+														target=main>－蓝牙阵列用户轨迹回放</A></TD>
+												</TR>
+												<TR>
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_showPosition.action"
 														target=main>－蓝牙阵列用户实时位置</A></TD>
 												</TR>

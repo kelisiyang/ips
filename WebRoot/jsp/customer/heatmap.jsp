@@ -31,7 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<TD><input type="text" id="starttime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="starttime" style="width:150px"/></TD>
 													<TD>设置结束时间</TD>	
 													<TD><input type="text" id="endtime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="endtime" style="width:150px"/></TD>
-													
+													<TD>按日期查询</TD>	
+													<TD><input type="text" id="day" onclick="WdatePicker()" name="day" style="width:150px"/></TD>
 													<TD><INPUT class=button id=sButton2 type=submit
 														value="查询热点图" name=sButton2></TD>
 														

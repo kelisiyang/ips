@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,6 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='${pageContext.request.contextPath }/My97DatePicker/WdatePicker.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
@@ -19,119 +21,82 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 
-<div id='map'></div>
+ <div id='map'>
+ 	<FORM id="customerForm" name="customerForm"
+		action="${pageContext.request.contextPath }/customer_tracedisplay.action"
+		method=post>
+ 	<TABLE cellSpacing=0 cellPadding=2 border=0> 	
+											<TBODY>
+												<TR>
+													<TD>MAC地址：</TD>
+													<TD><INPUT class=textbox id=sChannel2
+														style="WIDTH: 80px" maxLength=50 name="muMac"></TD>
+													<TD>设置开始时间</TD>	
+													<TD><input type="text" id="starttime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="starttime" style="width:150px"/></TD>
+													<TD>设置结束时间</TD>	
+													<TD><input type="text" id="endtime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="endtime" style="width:150px"/></TD>
+													
+													<TD><INPUT class=button id=sButton2 type=submit
+														value="轨迹回放" name=sButton2></TD>
+														
+												</TR>
+											</TBODY>
+										</TABLE>
+										</FORM>
+ </div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiamluZy1zYW0iLCJhIjoiY2l6ZXgxcDA3MDAzbjJ3b3d5c3V0cTdxMSJ9.lncV85QVu9XzKlsOzUf9TA';
+var styleLocation='${pageContext.request.contextPath }/json/style.json';
 var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v9',
-    center: [-120, 50],
-    zoom: 2
+    container: 'map', // container id
+    style: styleLocation
 });
-map.on('load', function() {
-    //Add a geojson point source.
-    //Heatmap layers also work with a vector tile source.
-    map.addSource('earthquakes', {
-        "type": "geojson",
-        "data": "${pageContext.request.contextPath }/geojson/earthquakes.geojson"
-    });
+/* var geojson="${pageContext.request.contextPath }/geojson/earthquakes2.geojson"; */
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+map.on('load', function () {
+    // We use D3 to fetch the JSON here so that we can parse and use it separately
+    // from GL JS's use in the added source. You can use any request method (library
+    // or otherwise) that you want.
+    d3.json('http://47.94.129.191:8080/sshcustorm3/customer_downloadGeoJson2.action', function(err, data) {
+        if (err) throw err;
+		//console.log(data.geometry.coordinates);
+        // save full coordinate list for later
+        var coordinates = data.geometry.coordinates;
 
-   map.addLayer({
-        "id": "earthquakes-heat",
-        "type": "heatmap",
-        "source": "earthquakes",
-        "maxzoom": 9,
-        "paint": {
-            //Increase the heatmap weight based on frequency and property magnitude
-            "heatmap-weight": {
-                "property": "mag",
-                "type": "exponential",
-                "stops": [
-                    [0, 0],
-                    [6, 1]
-                ]
-            },
-            //Increase the heatmap color weight weight by zoom level
-            //heatmap-ntensity is a multiplier on top of heatmap-weight
-            "heatmap-intensity": {
-                "stops": [
-                    [0, 1],
-                    [9, 3]
-                ]
-            },
-            //Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-            //Begin color ramp at 0-stop with a 0-transparancy color
-            //to create a blur-like effect.
-            "heatmap-color": [
-                "interpolate",
-                ["linear"],
-                ["heatmap-density"],
-                0, "rgba(33,102,172,0)",
-                0.2, "rgb(103,169,207)",
-                0.4, "rgb(209,229,240)",
-                0.6, "rgb(253,219,199)",
-                0.8, "rgb(239,138,98)",
-                1, "rgb(178,24,43)"
-            ],
-            //Adjust the heatmap radius by zoom level
-            "heatmap-radius": {
-                "stops": [
-                    [0, 2],
-                    [9, 20]
-                ]
-            },
-            //Transition from heatmap to circle layer by zoom level
-            "heatmap-opacity": {
-                "default": 1,
-                "stops": [
-                    [7, 1],
-                    [9, 0]
-                ]
-            },
-        }
-    }, 'waterway-label');
+        // start by showing just the first coordinate
+        data.geometry.coordinates = [coordinates[0]];
 
-    map.addLayer({
-        "id": "earthquakes-point",
-        "type": "circle",
-        "source": "earthquakes",
-        "minzoom": 7,
-        "paint": {
-            //Size circle raidus by earthquake magnitude and zoom level
-            "circle-radius": {
-                "property": "mag",
-                "type": "exponential",
-                "stops": [
-                    [{ zoom: 7, value: 1 }, 1],
-                    [{ zoom: 7, value: 6 }, 4],
-                    [{ zoom: 16, value: 1 }, 5],
-                    [{ zoom: 16, value: 6 }, 50],
-                ]
-            },
-            //Color circle by earthquake magnitude
-            "circle-color": {
-                "property": "mag",
-                "type": "exponential",
-                "stops": [
-                    [1, "rgba(33,102,172,0)"],
-                    [2, "rgb(103,169,207)"],
-                    [3, "rgb(209,229,240)"],
-                    [4, "rgb(253,219,199)"],
-                    [5, "rgb(239,138,98)"],
-                    [6, "rgb(178,24,43)"]
-                ]
-            },
-            "circle-stroke-color": "white",
-            "circle-stroke-width": 1,
-            //Transition from heatmap to circle layer by zoom level
-            "circle-opacity": {
-                "stops": [
-                    [7, 0],
-                    [8, 1]
-                ]
+        // add it to the map
+        map.addSource('trace', { type: 'geojson', data: data });
+        map.addLayer({
+            "id": "trace",
+            "type": "line",
+            "source": "trace",
+            "paint": {
+                "line-color": "red",
+                "line-opacity": 0.75,
+                "line-width": 4
             }
-        }
-    }, 'waterway-label');
+        });
+
+        // setup the viewport
+        map.jumpTo({ 'center': coordinates[0], 'zoom': 19 });
+        map.setPitch(30);
+
+        // on a regular basis, add more coordinates from the saved list and update the map
+        var i = 0;
+        var timer = window.setInterval(function() {
+            if (i < coordinates.length) {
+                data.geometry.coordinates.push(coordinates[i]);
+                map.getSource('trace').setData(data);
+                map.panTo(coordinates[i]);
+                i++;
+            } else {
+                window.clearInterval(timer);
+            }
+        }, 200);
+    });
 });
 </script>
 

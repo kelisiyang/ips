@@ -46,6 +46,13 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	private ConvertGauss2Geodetic convertGauss2Geodetic=new ConvertGauss2Geodetic();
 	private MPoint mPoint=new MPoint();
 	private String muMac;
+	private String jsonString;
+	public String getJsonString() {
+		return jsonString;
+	}
+	public void setJsonString(String jsonString) {
+		this.jsonString = jsonString;
+	}
 	private Customer customer=new Customer();
 	private Integer currentPage;
 	private Double x,y,absx,absy,longitude,latitude;
@@ -218,9 +225,12 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		HttpServletRequest request = ServletActionContext.getRequest();  
 		String starttime=request.getParameter("starttime");
 		String endtime=request.getParameter("endtime");
+		String day=request.getParameter("day");
 		System.out.println(starttime+endtime);
-		if(starttime!=null&&endtime!=null)
+		if(!"".equals(day)&&day!=null)
 		{
+			starttime=day+" 00:00:00";
+			endtime=day+" 23:59:59";
 			List<Customer> list=customerService.findCondition3(starttime,endtime);
 			StringBuilder resultBuilder = new StringBuilder("{").append("\"type\": \"FeatureCollection\",")
 					.append("\"features\": [");
@@ -243,17 +253,44 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 			recordBuilder.setLength(recordBuilder.length() - 1);
 			resultBuilder.append(recordBuilder).append("]").append("}");
 			String geoString=resultBuilder.toString();
-			
-			//System.out.println(geoString);
-			/*Writer w=new FileWriter("C:\\Users\\lenovo\\Desktop\\hlj\\WebRoot\\geojson\\earthquakes.geojson");
-			BufferedWriter bw=new BufferedWriter(w);
-			bw.write(geoString);
-			bw.close();*/
+
 			ServletActionContext.getRequest().setAttribute("geoString", geoString);
 			System.out.println(geoString);
 		}
-		else{
-			return "heatMap2";
+		else
+		{
+			if(starttime!=null&&endtime!=null)
+			{
+				List<Customer> list=customerService.findCondition3(starttime,endtime);
+				StringBuilder resultBuilder = new StringBuilder("{").append("\"type\": \"FeatureCollection\",")
+						.append("\"features\": [");
+				StringBuilder recordBuilder = new StringBuilder();
+				for(int i=0;i<list.size();i++)
+				{
+					Double X=list.get(i).getX();
+					Double Y=list.get(i).getY();
+					absx=1.004614916617*Math.sin(0.0001577329)*list.get(i).getX()+1.004614916617*Math.cos(0.0001577329)*list.get(i).getY()+5081797.342644;
+					
+					absy=1.004614916617*Math.cos(0.0001577329)*list.get(i).getX()-1.004614916617*Math.sin(0.0001577329)*list.get(i).getY()+538015.238729;
+					//System.out.println(absx+absy);
+					xy2BL bl=new xy2BL(absx, absy, 126);
+					latitude=bl.getB();
+					longitude=bl.getL();
+					recordBuilder.append("{ \"type\": \"Feature\", \"geometry\": { \"type\": \"Point\", \"coordinates\": [ ")
+					.append(longitude).append(", ").append(latitude).append(" ] } },");
+					
+				}
+				recordBuilder.setLength(recordBuilder.length() - 1);
+				resultBuilder.append(recordBuilder).append("]").append("}");
+				String geoString=resultBuilder.toString();
+
+				ServletActionContext.getRequest().setAttribute("geoString", geoString);
+				System.out.println(geoString);
+			}
+			else
+			{
+				return "heatMap2";
+		    }		
 		}
 		return "heatMap";
 	}
@@ -334,12 +371,66 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	    	
 	    }
 	    //tracedisplay测试
-	    public String tracedisplay(){
+	    public String tracedisplay() throws ParseException{
+	    	HttpServletRequest request = ServletActionContext.getRequest();  
+			String starttime=request.getParameter("starttime");
+			String endtime=request.getParameter("endtime");
 			
-	    	return "tracedisplay";
+			//System.out.println(date);
+			String muMac=request.getParameter("muMac");
+			System.out.println(muMac+starttime+endtime);
+			if(muMac!=null&&starttime!=null&&endtime!=null)
+			{
+				List<Customer> list=customerService.findCondition2(customer,starttime,endtime);
+				StringBuilder resultBuilder = new StringBuilder("{").append("\"type\": \"Feature\",")
+						.append("\"geometry\": {").append("\"type\": \"LineString\",").append("\"coordinates\":[");
+				StringBuilder recordBuilder = new StringBuilder();
+				ServletActionContext.getRequest().setAttribute("list", list);
+				//System.out.println(list.size());
+				List<Double> X=new ArrayList<Double>();
+				List<Double> Y=new ArrayList<Double>();
+				List<Double> longitudelist=new ArrayList<Double>();
+				List<Double> latitudelist=new ArrayList<Double>();
+				for(int i=0;i<list.size();i++)
+				{
+					latitude=list.get(i).getLatitude();
+					longitude=list.get(i).getLongitude();
+					longitudelist.add(longitude);
+					latitudelist.add(latitude);
+				}
+				ServletActionContext.getRequest().setAttribute("latitudelist", latitudelist);
+				ServletActionContext.getRequest().setAttribute("longitudelist", longitudelist);
+				
+				for(int i=0;i<list.size();i++)
+				{
+					System.out.println(latitudelist.get(i));
+					System.out.println(longitudelist.get(i));
+					recordBuilder.append("[").append(longitudelist.get(i)).append(",").append(latitudelist.get(i)).append("],");
+				}
+				recordBuilder.setLength(recordBuilder.length()-1);
+				resultBuilder.append(recordBuilder).append("]}}");
+				jsonString=resultBuilder.toString();
+				Map<String, Object> session=ActionContext.getContext().getSession();
+				session.put("jsonString", jsonString);
+				//System.out.println(jsonString);
 	    	
-	    }
-	    
+	    }   
+			
+			return "tracedisplay";
+	   	
+		}
+	//动态轨迹请求数据
+	public String downloadGeoJson2() throws IOException, ParseException{
+			
+			Map<String, Object> session=ActionContext.getContext().getSession();
+			jsonString=(String) session.get("jsonString");
+			//System.out.println(jsonString);
+			ServletActionContext.getResponse().getWriter().write(jsonString);
+			//初始化session
+			session.put("jsonString", null);
+			return null;
+			
+			}    
 	public CGCS2000Point getcPoint() {
 		return cPoint;
 	}

@@ -6,13 +6,17 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import entity.Customer;
 import entity.xy2BL;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -25,7 +29,7 @@ import net.sf.json.JSONObject;
 public class GeojsonAction extends ActionSupport{
 		String message;
 		public String downloadGeoJson() throws IOException{
-			String url="http://221.212.36.82:1234/qpe/getTagPosition?version=2";
+			String url="http://221.212.36.82:1234/qpe/getTagPosition?version=2&maxAge=5000";
 			    //循环变量i
 				int i=0;	
 	        	//解析url转换成字符串
@@ -81,6 +85,7 @@ public class GeojsonAction extends ActionSupport{
 			    ServletActionContext.getResponse().getWriter().write(geoString);	
 			return null;
 		}
+		
 		//网页加载json
 		public static String loadJSON (String url) {
 	        StringBuilder jsonString = new StringBuilder();
