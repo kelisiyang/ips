@@ -218,9 +218,6 @@ $(document).ready(function() {
             setNumber(y);
         },
    		error: function(XMLHttpRequest, textStatus, errorThrown) {
- 			alert(XMLHttpRequest.status);
- 			alert(XMLHttpRequest.readyState);
- 			alert(textStatus);
    		}
 
     });
@@ -333,7 +330,7 @@ $(document).ready(function() {
 						<h3 id="nownumbers"></h3> 
 						</div>
 						<div class="card-action">
-						<strong> 实时客流量</strong>
+						<strong> 实时人流量</strong>
 						</div>
 						</div>
 						</div>
@@ -350,7 +347,7 @@ $(document).ready(function() {
 						<h3 id="btnumbers"></h3> 
 						</div>
 						<div class="card-action">
-						<strong>蓝牙阵列在线人数（博冕接口测试）</strong>
+						<strong>蓝牙阵列在线人数</strong>
 						</div>
 						</div>
 						</div> 
@@ -366,7 +363,7 @@ $(document).ready(function() {
 						<h3 id="maxnumbers"></h3> 
 						</div>
 						<div class="card-action">
-						<strong> 当日客流峰值</strong>
+						<strong> 当日人流峰值</strong>
 						</div>
 						</div>
 						</div> 
@@ -383,7 +380,7 @@ $(document).ready(function() {
 						<h3>55</h3> 
 						</div>
 						<div class="card-action">
-						<strong> 当日累计顾客</strong>
+						<strong> 当日累计人流</strong>
 						</div>
 						</div>
 						</div> 

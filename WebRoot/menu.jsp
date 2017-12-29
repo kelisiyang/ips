@@ -158,14 +158,7 @@ A.active {
 										<TABLE id=table_2 style="DISPLAY: none" cellSpacing=0
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
-												<TR>
-													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_showMap.action"
-														target=main>－ 显示地图</A></TD>
-												</TR>
-												<TR>
-													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_heatMap.action"
-														target=main>－蓝牙阵列用户位置查询</A></TD>
-												</TR>
+												
 												<TR>
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_traceMap.action"
 														target=main>－蓝牙阵列用户轨迹查询</A></TD>
@@ -184,7 +177,7 @@ A.active {
 												</TR>
 												<TR>
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_heatMap.action"
-														target=main>－热点图</A></TD>
+														target=main>－蓝牙阵列用户热点图</A></TD>
 												</TR>
 												
 											</TBODY>
@@ -196,18 +189,14 @@ A.active {
 								</TR>
 								<TR>
 									<TD class=mainMenu onClick="MenuDisplay('table_5');"><SPAN
-										class=span id=table_5Span>＋</SPAN> 客流分析</TD>
+										class=span id=table_5Span>＋</SPAN> 测试功能</TD>
 								</TR>
 								<TR>
 									<TD>
 										<TABLE id=table_5 style="DISPLAY: none" cellSpacing=0
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
-												
-												<TR>
-													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/keliu_AnonyWifi.action"
-														target=main>－查看匿名wifi用户</A></TD>
-												</TR>
+										
 												<TR>
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/keliu_toAddPage.action"
 														target=main>－新增楼层信息</A></TD>
@@ -230,7 +219,7 @@ A.active {
 								</TR>
 								<TR>
 									<TD class=mainMenu onClick="MenuDisplay('table_3');"><SPAN
-										class=span id=table_3Span>＋</SPAN> 数据分析</TD>
+										class=span id=table_3Span>＋</SPAN> 客流分析</TD>
 								</TR>
 								<TR>
 									<TD>
@@ -240,6 +229,10 @@ A.active {
 												<TR>
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/keliu_toUserPage.action"
 														target=main>－ 统计报表</A></TD>
+												</TR>
+												<TR>
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/keliu_AnonyWifi.action"
+														target=main>－查看匿名wifi用户</A></TD>
 												</TR>
 												<TR>
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/keliu_toWifiPerson.action"
@@ -258,7 +251,7 @@ A.active {
 								</TR>
 								<TR>
 									<TD class=mainMenu onClick="MenuDisplay('table_4');"><SPAN
-										class=span id=table_4Span>＋</SPAN> Wifi蓝牙定位</TD>
+										class=span id=table_4Span>＋</SPAN> 网络端定位</TD>
 								</TR>
 								<TR>
 									<TD>

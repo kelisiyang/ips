@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id='map'>
  	<FORM id="customerForm" name="customerForm"
 		action="${pageContext.request.contextPath }/customer_heatMap.action"
-		method=post>
+		method=post  onsubmit="return ckeckForm()">
  	<TABLE cellSpacing=0 cellPadding=2 border=0> 	
 											<TBODY>
 												<TR>
@@ -104,7 +104,20 @@ map.on('load', function() {
 });
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
+function ckeckForm()
+	{
+		var day=document.getElementById("day").value;
+		var starttime=document.getElementById("starttime").value;
+		var endtime=document.getElementById("endtime").value;
+		if((day==null||day=='')&&((starttime==null||starttime=='')||(endtime==null||endtime=='')))
+		{
+			alert("请输入时间段或者日期!");
+			return false;
+		}
+		else return true;
+	}
 </script>
 
+	
 </body>
 </html>

@@ -24,12 +24,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div id='map'>
  	<FORM id="customerForm" name="customerForm"
 		action="${pageContext.request.contextPath }/customer_tracedisplay.action"
-		method=post>
+		method=post onsubmit="return ckeckForm()">
  	<TABLE cellSpacing=0 cellPadding=2 border=0> 	
 											<TBODY>
 												<TR>
 													<TD>MAC地址：</TD>
-													<TD><INPUT class=textbox id=sChannel2
+													<TD><INPUT class=textbox id="muMac"
 														style="WIDTH: 80px" maxLength=50 name="muMac"></TD>
 													<TD>设置开始时间</TD>	
 													<TD><input type="text" id="starttime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="starttime" style="width:150px"/></TD>
@@ -98,6 +98,18 @@ map.on('load', function () {
         }, 200);
     });
 });
+function ckeckForm()
+	{
+		var muMac=document.getElementById("muMac").value;
+		var starttime=document.getElementById("starttime").value;
+		var endtime=document.getElementById("endtime").value;
+		if((muMac==null||muMac=='')||(starttime==null||starttime=='')||(endtime==null||endtime==''))
+		{
+			alert("请输入MAC地址和时间段!");
+			return false;
+		}
+		else return true;
+	}
 </script>
 
 </body>

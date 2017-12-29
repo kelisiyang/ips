@@ -72,18 +72,6 @@ map.on('load', function () {
         }
     });
 
-    /* function animateMarker(timestamp) {
-        // Update the data to a new position based on the animation timestamp. The
-        // divisor in the expression `timestamp / 1000` controls the animation speed.
-        map.getSource('point').setData(pointOnCircle(timestamp / 1000));
-
-        // Request the next frame of the animation.
-        requestAnimationFrame(animateMarker);
-    } */
-
-    // Start the animation.
-    //animateMarker(0);
-});
 
 //ajax请求
 $('#sButton2').click( function(){ 

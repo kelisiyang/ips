@@ -24,6 +24,7 @@
 			<result name="monitor">/jsp/customer/monitor.jsp</result>
 			<result name="tracedisplay">/jsp/customer/tracedisplay.jsp</result>
 			<result name="tracedisplay2">/jsp/customer/tracedisplay2.jsp</result>
+			<result name="newheatmap">/jsp/customer/newheatmap.jsp</result>
 		</action>
 		<action name="linkman_*" class="linkManAction" method="{1}">
 			<result name="toAddPage">/jsp/linkman/add.jsp</result>
