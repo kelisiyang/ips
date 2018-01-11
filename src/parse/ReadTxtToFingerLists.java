@@ -21,7 +21,7 @@ import mac.FingerList.Device;
 public class ReadTxtToFingerLists {
 	List<FingerList> fingerLists =new ArrayList<FingerList>();
 	public  List<FingerList> getFingerLists() throws IOException{
-		File file=new File("G:\\wififingerprint.txt");
+		File file=new File("/usr/local/wififingerprint.txt");
 		BufferedReader br=new BufferedReader(new FileReader(file));
 		//FingerLists存的是FingerList，每个FingerList是每个id对应的一条数据。
 		
