@@ -319,7 +319,7 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	    	muMac=(String) session.get("muMac");
 	    	System.out.println(muMac);
 	    	//¶¨ÒåÇëÇóurl
-	    	String url = "http://221.212.36.82:1234/qpe/getTagPosition?version=2&humanReadable=true&tag="+muMac;
+	    	String url = "http://221.212.36.82:1234/qpe/getTagPosition?version=2&humanReadable=true&maxAge=3000&tag="+muMac;
 			         	
 	    	        int i=0;	
 		        	String json = loadJSON(url);

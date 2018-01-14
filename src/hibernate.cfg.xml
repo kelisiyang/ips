@@ -26,6 +26,7 @@
 		<!-- 第三部分： 把映射文件放到核心配置文件中 必须的-->
 		<mapping resource="entity/Customer.hbm.xml"/>
 		<mapping resource="entity/Keliu.hbm.xml"/>
+		<mapping resource="entity/HpnCustomer.hbm.xml"/>
     </session-factory>
 
 </hibernate-configuration>

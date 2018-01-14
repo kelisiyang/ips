@@ -18,6 +18,15 @@
 	<bean id="customerDaoImpl" class="dao.CustomerDaoImpl">
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
+	<bean id="hpncustomerAction" class="action.HpnCustomerAction" scope="prototype">
+		<property name="hpncustomerService" ref="hpncustomerService"></property>
+	</bean>
+	<bean id="hpncustomerService" class="service.HpnCustomerService">
+		<property name="hpncustomerDao" ref="hpncustomerDaoImpl"></property>
+	</bean>
+	<bean id="hpncustomerDaoImpl" class="dao.HpnCustomerDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
 	<bean id="udpAction" class="action.UdpAction" scope="singleton">
 	</bean>
 	<bean id="geojsonAction" class="action.GeojsonAction" scope="singleton">

@@ -196,7 +196,18 @@ A.active {
 										<TABLE id=table_5 style="DISPLAY: none" cellSpacing=0
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
-										
+												<TR>
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/hpncustomer_traceMap.action"
+														target=main>－室外接收机轨迹</A></TD>
+												</TR>
+												<TR>
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/hpncustomer_traceMap.action"
+														target=main>－室内app用户轨迹</A></TD>
+												</TR>
+												<TR>
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/hpncustomer_tracedisplay.action"
+														target=main>－室内app用户轨迹回放</A></TD>
+												</TR>
 												<TR>
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/keliu_toAddPage.action"
 														target=main>－新增楼层信息</A></TD>

@@ -26,6 +26,11 @@
 			<result name="tracedisplay2">/jsp/customer/tracedisplay2.jsp</result>
 			<result name="newheatmap">/jsp/customer/newheatmap.jsp</result>
 		</action>
+		<action name="hpncustomer_*" class="hpncustomerAction" method="{1}" >
+			<result name="apptracemap">/jsp/hpncustomer/apptracemap.jsp</result>
+			<result name="apptracemap2">/jsp/hpncustomer/apptracemap2.jsp</result>
+			<result name="tracedisplay">/jsp/hpncustomer/tracedisplay.jsp</result>
+		</action>
 		<action name="linkman_*" class="linkManAction" method="{1}">
 			<result name="toAddPage">/jsp/linkman/add.jsp</result>
 			<result name="add" type="redirectAction">customer_list</result>

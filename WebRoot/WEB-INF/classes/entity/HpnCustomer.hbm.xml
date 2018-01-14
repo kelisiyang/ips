@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="entity.HpnCustomer" table="hpn_customerPosition">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="createDatetime" column="createDatetime"></property>
+		<property name="deleteFlag" column="deleteFlag"></property>
+		<property name="operater" column="operater"></property>
+		<property name="updateDatetime" column="updateDatetime"></property>
+		<property name="azimuth" column="azimuth"></property>
+		<property name="latitude" column="latitude"></property>
+		<property name="longitude" column="longitude"></property>
+		<property name="MACCode" column="MACCode"></property>
+		<property name="channelType" column="channelType"></property>
+		<property name="dev_id" column="dev_id"></property>
+	</class>
+</hibernate-mapping>

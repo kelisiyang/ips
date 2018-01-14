@@ -29,7 +29,7 @@ import net.sf.json.JSONObject;
 public class GeojsonAction extends ActionSupport{
 		String message;
 		public String downloadGeoJson() throws IOException{
-			String url="http://221.212.36.82:1234/qpe/getTagPosition?version=2&maxAge=5000";
+			String url="http://221.212.36.82:1234/qpe/getTagPosition?version=2&maxAge=3000";
 			    //循环变量i
 				int i=0;	
 	        	//解析url转换成字符串
